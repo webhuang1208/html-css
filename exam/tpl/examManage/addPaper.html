@@ -1,0 +1,99 @@
+<style>
+    .Catalogcontentup li{
+        line-height:25px;
+    }
+</style>
+<div class="editingarea">
+    <div class="c_flex"><span class="c_flexible"></span></div>
+    <div class="c_editview">
+        <div class="c_condition">
+            <span><select><option>题干</option></select></span>
+            <span class="pl5 " ><input type="text"></span>
+        </div>
+        <div class="divtable">
+            <subject-directive>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tablea">
+                    <tr>
+                        <td align="center" style="width: 50px">题型</td>
+                        <td align="left">
+                            <div class="chose">
+                                <a href="#/AllSubject/a/0/b/{{params.b}}/c/{{params.c}}/d/{{params.d}}" class={{params.a==0?'active3':''}}>全部</a>
+                                <a href="#/AllSubject/a/{{type.id}}/b/{{params.b}}/c/{{params.c}}/d/{{params.d}}" class={{params.a==type.id?'active3':''}} ng-repeat="type in types">{{type.realName}}</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td align="center" style="width: 50px">难度</td>
+                        <td align="left">
+                            <div class="chose">
+                                <a href="#/AllSubject/a/{{params.a}}/b/0/c/{{params.c}}/d/{{params.d}}" class={{params.b==0?'active3':''}}>全部</a>
+                                <a href="#/AllSubject/a/{{params.a}}/b/{{level.id}}/c/{{params.c}}/d/{{params.d}}" class={{params.b==level.id?'active3':''}} ng-repeat="level in levels">{{level.realName}}</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td align="center" style="width: 50px">方向</td>
+                        <td align="left">
+                            <div class="chose">
+                                <a href="#/AllSubject/a/{{params.a}}/b/{{params.b}}/c/0/d/{{params.d}}" class={{params.c==0?'active3':''}}>全部</a>
+                                <a href="#/AllSubject/a/{{params.a}}/b/{{params.b}}/c/{{department.id}}/d/{{params.d}}" class={{params.c==department.id?'active3':''}} ng-repeat="department in departments">{{department.name}}</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="width: 50px">知识点</td>
+                        <td align="left">
+                            <div class="chose">
+                                <a href="#/AllSubject/a/{{params.a}}/b/{{params.b}}/c/{{params.c}}/d/0" class="active3">全部</a>
+                                <a href="#AllSubject/a/{{params.a}}/b/{{params.b}}/c/{{params.c}}/d/{{topic.id}}" class="{{params.d==topic.id?'active3':''}}" ng-repeat="topic in topics">{{topic.title}}</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </subject-directive>
+        </div>
+        <div class="Catalog">
+
+            <div class="Catalog_right">
+                <div class="Catalogtitle">总计<em>15552</em>道题&nbsp;&nbsp;提示：单击体面可显示答案和解析&nbsp;&nbsp;<input type="checkbox" ng-model="isShow" /><b>显示答案和解析</b>&nbsp;&nbsp;<div><i>1</i><a href="#" class="pageone">前</a><a href="#" class="pagetwo">后</a></div></div>
+
+                <div class="Catalog_rightnei" ng-repeat="exam in exams">
+                    <div class="Catalogtitwo">
+                        题号：{{exam.id}}&nbsp;&nbsp;
+                        题型：{{exam.subjectType["realName"]}}&nbsp;&nbsp;
+                        难度：{{exam.subjectLevel["realName"]}}&nbsp;&nbsp;
+                        上传人：{{exam.user}}&nbsp;&nbsp;
+                        上传时间:{{exam.uploadTime}}&nbsp;&nbsp;组卷次数：<em>0</em></div>
+                    <div class="Catalogcontent">
+                        <div class="Catalogcontentup">
+                            <!--这里是题干-->
+                            <h4>{{$index+1}}、{{exam.stem}}</h4>
+                            <!--题目选项-->
+                            <ul>
+                                <li ng-repeat="choice in exam.choices">
+
+                                    {{choice.no}}
+                                    {{choice.content}}
+
+                                </li>
+
+                            </ul>
+                            <div class="answer" ng-show="isShow">答案是：{{exam.answer}}</div>
+                        </div>
+                        <div class="Catalogcontentdown">
+                            <a href="#/PaperAdd/id/{{exam.id}}/stem/{{exam.stem}}/type/{{exam.subjectType.realName}}/topic/{{exam.topic.title}}/level/{{exam.subjectLevel.realName}}">加入试卷</a>
+                            <a href="#/SubjectCheck/id/{{exam.id}}/state/通过">审核通过</a>
+                            <a href="#/SubjectCheck/id/{{exam.id}}/state/不通过">审核不通过</a>
+                            <a href="#/SubjectDel/id/{{exam.id}}">删除题目</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
